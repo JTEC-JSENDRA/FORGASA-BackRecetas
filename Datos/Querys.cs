@@ -78,8 +78,8 @@ namespace GestionRecetas.Datos
             List<string> querys = new List<string>();
 
             //0 - Se inserta la receta en caso de que no exista
-            
-            querys.Add($@"INSERT INTO Recetas (ID_Father, NombreReceta, Bloqueada, NumeroEtapas, Creada,Operacion,Material,alternativa,Version) 
+            // ID_Father, NombreReceta, Bloqueada, NumeroEtapas, Creada, Operacion, Material, alternativa, Version
+            querys.Add($@"INSERT INTO Recetas (ID_Father, NombreReceta, Bloqueada, NumeroEtapas, Creada,Material, Operacion,  alternativa, Version) 
                             VALUES (
                                     (SELECT ID FROM Materias WHERE Nombre LIKE '{CabeceraReceta.NombreReactor}'), 
                                     '{CabeceraReceta.NombreReceta}',
@@ -96,7 +96,6 @@ namespace GestionRecetas.Datos
                                       FROM Materias 
                                       WHERE ID = (SELECT ID FROM Materias WHERE Nombre LIKE '{CabeceraReceta.NombreReactor}')
                                     ),
-
                                     {0},
                                     {0}
                                     )"
