@@ -168,23 +168,18 @@ namespace GestionRecetas.Controllers
         public async Task<IActionResult> Put(JsonElement DatosReceta)
         {
             SQLServerManager BBDD = new SQLServerManager();
-            Console.WriteLine("[DEBUG 0]");
             // Convertimos el JSON recibido a una clase manejable
             JSON json = new JSON(DatosReceta);
             
-
             CabeceraReceta CabeceraReceta = json.ObtenerCabeceraReceta();
 
-            Console.WriteLine("[DEBUG 1]");
             // Eliminamos la receta anterior (si existe) en la base de datos
             await BBDD.EliminarDatos(DatosReceta, CabeceraReceta);
-            Console.WriteLine("[DEBUG 2]");
             CabeceraEtapa CabeceraEtapa = new CabeceraEtapa();
             CsgProceso1 Consignas = new CsgProceso1();
 
             // Insertamos o actualizamos la cabecera de la receta
             await BBDD.ActualizarCabeceraReceta(CabeceraReceta, CabeceraEtapa, Consignas);
-            Console.WriteLine("[DEBUG 3]");
             short Aux_N_Etapas = 0;
             bool Deleteado = false;
 
@@ -192,18 +187,14 @@ namespace GestionRecetas.Controllers
             for (short NumeroEtapa = 1; NumeroEtapa <= CabeceraReceta.NumeroEtapas; NumeroEtapa++)
             {
                 CabeceraEtapa = json.ObtenerCabeceraEtapa(NumeroEtapa);
-                Console.WriteLine("[DEBUG 4]");
                 // Guardamos cabecera de etapa
                 await BBDD.ActualizarCabeceraEtapa(CabeceraReceta, CabeceraEtapa, Consignas);
-                Console.WriteLine("[DEBUG 5]");
                 // Eliminamos datos anteriores de la etapa
                 await BBDD.EliminarDatoEtapa_PPL(NumeroEtapa, CabeceraReceta.ID);
-                Console.WriteLine("[DEBUG 6]");
                 // Recorremos los 5 procesos posibles
                 for (short NumeroProceso = 1; NumeroProceso <= 5; NumeroProceso++)
                 {
                     List<CsgProceso1> ConsignasProceso = json.ObtenerConsignasProceso(NumeroEtapa, NumeroProceso);
-                    Console.WriteLine("[DEBUG 7]");
                     foreach (var consigna in ConsignasProceso)
                     {
                         // Asegura que los datos anteriores de las etapas solo se eliminen una vez
@@ -215,11 +206,9 @@ namespace GestionRecetas.Controllers
 
                         // Guardamos cada consigna en base de datos
                         await BBDD.ActualizarConsignasProceso(CabeceraReceta, CabeceraEtapa, consigna);
-                        Console.WriteLine("[DEBUG 8]");
                     }
                 }
             }
-            Console.WriteLine("[DEBUG 9]");
             // Devolvemos la cabecera de la receta como respuesta
             return Ok(json.ObtenerCabeceraReceta());
         }

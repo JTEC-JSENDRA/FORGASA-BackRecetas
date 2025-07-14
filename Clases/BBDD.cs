@@ -17,7 +17,7 @@ namespace GestionRecetas.Clases
 
         // ---------------------------------------------------------------------------------------------------------------------------
 
-        // Constructor: Inicializa la cadena de conexión a la base de datos (Si en algun momento se cambia la BBDD se debe cambiar esta configuración)
+        // Constructor: Inicializa la cadena de conexión a la base de datos (Si en algún momento se cambia la BBDD se debe cambiar esta configuración)
        
         public SQLServerManager()
         {
