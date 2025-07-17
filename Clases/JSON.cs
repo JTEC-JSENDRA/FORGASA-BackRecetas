@@ -148,7 +148,7 @@ namespace GestionRecetas.Clases
                     JArray proceso = (JArray)jsonArray[Etapa][Proceso];
                     NumeroConsignas += proceso.Count;
                 }
-                Console.WriteLine($"Numero de consignas del proceso {Proceso}: {NumeroConsignas}");
+                //Console.WriteLine($"Numero de consignas del proceso {Proceso}: {NumeroConsignas}");
                 int[] IDsConsignas = new int[NumeroConsignas];
 
                 // Extrae los IDs de cada consigna y los almacena en un array

@@ -507,8 +507,8 @@ namespace GestionRecetas.Clases
                     ? query.Update(0, CabeceraReceta, CabeceraEtapa, ConsignaProceso)  // Actualiza si existe
                     : query.Insert(0, CabeceraReceta, CabeceraEtapa, ConsignaProceso); // Inserta si no existe
                 
-                Console.WriteLine("Consulta SQL generada:");
-                Console.WriteLine(sql);
+                //Console.WriteLine("Consulta SQL generada:");
+                //Console.WriteLine(sql);
 
                 SqlCommand command = new SqlCommand(sql, connection);
 
