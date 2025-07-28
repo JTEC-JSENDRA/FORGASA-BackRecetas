@@ -501,11 +501,41 @@ namespace GestionRecetas.Clases
                 SqlCommand commandExistencia = new SqlCommand(query.Select(4, CabeceraReceta.ID.ToString()), connection);
                 int count = (int)commandExistencia.ExecuteScalar();
 
+                Console.WriteLine("");
+                Console.WriteLine($"Verificando cabecera: {count}");
+
                 //count = 0;
                 // Decide si debe actualizar o insertar, dependiendo de la existencia
+
+                // --------
+
+                SqlCommand commandExistencia_Nombre = new SqlCommand(query.Select(12, CabeceraReceta.NombreReceta.ToString()), connection);
+                int count_Nombre = (int)commandExistencia_Nombre.ExecuteScalar();
+
+                // count_Nombre = 0 -> no existe el nombre // 1 -> existe
+                // Si el nombre existe hay que coger la version y sumarle 1
+
+                if (count_Nombre > 0)
+                {
+                    SqlCommand commandExistencia_Version = new SqlCommand(query.Select(13, CabeceraReceta.NombreReceta.ToString()), connection);
+                    int Version = (int)commandExistencia_Version.ExecuteScalar();
+
+                    Console.WriteLine("");
+                    Console.WriteLine($"Esta es la version de la receta: {Version}");
+                    Version++;
+                    Console.WriteLine($"Version subida: {Version}");
+                }
+                else
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Receta Nueva");
+                }
+ 
+                // --------
+
                 string sql = count > 0
-                    ? query.Update(0, CabeceraReceta, CabeceraEtapa, ConsignaProceso)  // Actualiza si existe
-                    : query.Insert(0, CabeceraReceta, CabeceraEtapa, ConsignaProceso); // Inserta si no existe
+                        ? query.Update(0, CabeceraReceta, CabeceraEtapa, ConsignaProceso)  // Actualiza si existe
+                        : query.Insert(0, CabeceraReceta, CabeceraEtapa, ConsignaProceso); // Inserta si no existe
                 
                 //Console.WriteLine("Consulta SQL generada:");
                 //Console.WriteLine(sql);

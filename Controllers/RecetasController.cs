@@ -167,6 +167,9 @@ namespace GestionRecetas.Controllers
         [HttpPost("DatosReceta/{DatosReceta}")]
         public async Task<IActionResult> Put(JsonElement DatosReceta)
         {
+            Console.WriteLine("-");
+            Console.WriteLine("Datos Receta");
+            Console.WriteLine("-");
             SQLServerManager BBDD = new SQLServerManager();
             // Convertimos el JSON recibido a una clase manejable
             JSON json = new JSON(DatosReceta);

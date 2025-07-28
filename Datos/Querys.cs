@@ -70,6 +70,12 @@ namespace GestionRecetas.Datos
                 AND Consigna = '{Consigna.Replace("'", "''")}'
                 AND Valor = '{Valor.Replace("'", "''")}'");
 
+            //12 - Busqueda Receta por nombre
+            querys.Add($@"SELECT COUNT(*) FROM Recetas WHERE nombreReceta = '{Valor}'");
+
+            //13 - Busqueda de Version
+            querys.Add($@"SELECT MAX(Version) FROM Recetas WHERE nombreReceta = '{Valor}'");
+
             return querys[Consulta];
         }
 
